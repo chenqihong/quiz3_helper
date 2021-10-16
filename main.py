@@ -137,6 +137,7 @@ class Graph:
         while True:
             # a item of the queue is a 3-tuple: (current_node, g_cost, h_cost)
             current_node, g_cost, h_cost = queue.remove()
+            print("currentNode = ", current_node.getKey())
             # gets all the successors of "current_node"
             successors = self.successors[current_node.getKey()]
             for successor in successors:
@@ -181,23 +182,31 @@ class Graph:
 
 
 # creates the nodes
-nodeS = Node('S', 9)
-nodeA = Node('A', 7)
-nodeB = Node('B', 5)
-nodeC = Node('C', 1)
+nodeS = Node('S', 23)
+nodeA = Node('A', 500)
+nodeB = Node('B', 21)
 nodeG1 = Node('G1', 0)
 nodeG2 = Node('G2', 0)
+
 
 # creates graph
 graph = Graph()
 
 # add the edges
-graph.addEdge(nodeS, nodeA, 3)
-graph.addEdge(nodeA, nodeB, 2)
-graph.addEdge(nodeA, nodeG1, 20)
-graph.addEdge(nodeB, nodeC, 4)
-graph.addEdge(nodeC, nodeG1, 15)
-graph.addEdge(nodeC, nodeG2, 2)
+graph.addEdge(nodeS, nodeA, 20)
+graph.addEdge(nodeS, nodeB, 5)
+
+
+
+graph.addEdge(nodeA, nodeG1, 30)
+graph.addEdge(nodeA, nodeG2, 26)
+
+
+graph.addEdge(nodeB, nodeB, 100)
+graph.addEdge(nodeB, nodeA, 14)
+
+
+
 
 path_cost_result_dict = graph.executeAStar(nodeS, [nodeG1, nodeG2])  # executes the algorithm
 print("path_cost_result_dict = ", path_cost_result_dict)
@@ -209,33 +218,3 @@ if path_cost_result_dict:
 else:
     print('Did not reach the goal!')
 
-
-# creates the nodes
-nodeS = Node('S', 10)
-nodeA = Node('A', 3)
-nodeB = Node('B', 7)
-nodeC = Node('C', 2)
-nodeG = Node('G', 0)
-
-print("example 2")
-# creates graph
-graph = Graph()
-
-# add the edges
-graph.addEdge(nodeS, nodeA, 4)
-graph.addEdge(nodeS, nodeB, 7)
-graph.addEdge(nodeA, nodeA, 15)
-graph.addEdge(nodeA, nodeB, 2)
-graph.addEdge(nodeB, nodeC, 4)
-graph.addEdge(nodeB, nodeG, 10)
-graph.addEdge(nodeC, nodeG, 3)
-
-path_cost_result_dict = graph.executeAStar(nodeS, [nodeG])  # executes the algorithm
-print("path_cost_result_dict = ", path_cost_result_dict)
-path_cost_result_dict = dict(sorted(path_cost_result_dict.items(), key=lambda item: item[1]))
-if path_cost_result_dict:
-    path = list(path_cost_result_dict.keys())[0]
-    total_cost_result = path_cost_result_dict[path]
-    print('Total cost of graph 1: %s. Path: %s' % (total_cost_result, path))
-else:
-    print('Did not reach the goal!')
